@@ -1,0 +1,33 @@
+@startuml
+
+title Диаграмма варианта исопльзования
+skin rose
+
+skinparam linetype ortho
+
+left to right direction
+
+actor "Пользователь" as user
+actor "API банкомат" as atm 
+actor "API принтер" as printer
+
+  usecase "UC5 Печать фото" as UC5
+  usecase "UC4 Оплатить печать фото" as UC4
+
+rectangle "Программное обеспечение автомата печати фото" {
+  usecase "UC1 Выбирать фото в Instagram" as UC1
+  usecase "UC2 Загрузить фото с телефона" as UC2
+  usecase "UC3 Выбирать кол-во фото для печати" as UC3
+}
+
+user -- UC1
+user -- UC2
+atm -- UC4
+printer -- UC4
+printer -- UC5
+UC1 .> UC4 : <<includes>> 
+UC3 .> UC1 : <<extends>>
+UC2 .> UC4 : <<includes>>
+UC3 .> UC2 : <<extends>>
+
+@enduml
